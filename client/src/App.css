@@ -16,20 +16,3 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
 }
-
-.homepage {
-  padding: 2rem;
-  max-width: 800px;
-  margin: 2rem auto;
-  text-align: center;
-}
-
-.homepage h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-
-.homepage p {
-  font-size: 1.1rem;
-  color: #555;
-}
