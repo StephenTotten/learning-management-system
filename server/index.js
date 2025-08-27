@@ -15,6 +15,7 @@ app.get('/api', (req, res) => {
   res.send('API is running');
 });
 app.use('/api/courses', require('./routes/courses'));
+app.use('/api/auth', require('./routes/auth'));
 
 const PORT = process.env.PORT || 5000;
 const sequelize = require('./config/db');
