@@ -1,4 +1,4 @@
-.login-container {
+.signup-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -6,7 +6,7 @@
   padding: 20px;
 }
 
-.login-form {
+.signup-form {
   background: white;
   padding: 2rem;
   border-radius: 8px;
@@ -15,7 +15,7 @@
   max-width: 400px;
 }
 
-.login-form h2 {
+.signup-form h2 {
   text-align: center;
   margin-bottom: 1.5rem;
   color: #333;
@@ -39,7 +39,7 @@
   border-color: #007bff;
 }
 
-.login-btn {
+.signup-btn {
   width: 100%;
   padding: 12px;
   background: #007bff;
@@ -50,21 +50,21 @@
   cursor: pointer;
 }
 
-.login-btn:hover {
+.signup-btn:hover {
   background: #0056b3;
 }
 
-.signup-link {
+.login-link {
   text-align: center;
   margin-top: 1rem;
   color: #666;
 }
 
-.signup-link a {
+.login-link a {
   color: #007bff;
   text-decoration: none;
 }
 
-.signup-link a:hover {
+.login-link a:hover {
   text-decoration: underline;
 }

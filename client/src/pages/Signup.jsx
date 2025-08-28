@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import './Login.css';
+import './Signup.css';
 
-export default function Login() {
+export default function Signup() {
   const navigate = useNavigate();
   const { login } = useAuth();
   const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
     email: '',
     password: ''
   });
@@ -21,7 +23,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -34,7 +36,7 @@ export default function Login() {
         login(data.user);
         navigate('/dashboard');
       } else {
-        console.error('Login failed');
+        console.error('Signup failed');
       }
     } catch (error) {
       console.error('Error:', error);
@@ -42,10 +44,32 @@ export default function Login() {
   };
 
   return (
-    <div className="login-container">
-      <form className="login-form" onSubmit={handleSubmit}>
-        <h2>Login</h2>
+    <div className="signup-container">
+      <form className="signup-form" onSubmit={handleSubmit}>
+        <h2>Sign Up</h2>
         
+        <div className="form-group">
+          <input
+            type="text"
+            name="firstName"
+            placeholder="First Name"
+            value={formData.firstName}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <input
+            type="text"
+            name="lastName"
+            placeholder="Last Name"
+            value={formData.lastName}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
         <div className="form-group">
           <input
             type="email"
@@ -68,12 +92,12 @@ export default function Login() {
           />
         </div>
 
-        <button type="submit" className="login-btn">
-          Login
+        <button type="submit" className="signup-btn">
+          Sign Up
         </button>
 
-        <p className="signup-link">
-          Don't have an account? <Link to="/signup">Sign up here</Link>
+        <p className="login-link">
+          Already have an account? <Link to="/login">Login here</Link>
         </p>
       </form>
     </div>
