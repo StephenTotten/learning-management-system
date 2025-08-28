@@ -23,25 +23,25 @@ const seedDatabase = async () => {
     // Create sample courses
     const courses = await Course.bulkCreate([
       {
-        title: 'JavaScript Fundamentals',
-        description: 'Learn the basics of JavaScript programming',
-        instructor: 'Jane Smith',
-        duration: '4 weeks',
-        price: 99.99
-      },
-      {
-        title: 'React Development',
-        description: 'Build modern web applications with React',
+        title: 'Clarity',
+        description: 'Discover mental clarity and focus through proven techniques and mindful practices',
         instructor: 'Jane Smith',
         duration: '6 weeks',
-        price: 149.99
+        price: 199.99
       },
       {
-        title: 'Node.js Backend',
-        description: 'Server-side development with Node.js',
+        title: 'Rooted',
+        description: 'Build strong foundations and develop deep personal grounding in your values',
         instructor: 'Jane Smith',
-        duration: '5 weeks',
-        price: 129.99
+        duration: '8 weeks',
+        price: 249.99
+      },
+      {
+        title: 'Relationships',
+        description: 'Master the art of meaningful connections and healthy relationship dynamics',
+        instructor: 'Jane Smith',
+        duration: '10 weeks',
+        price: 299.99
       }
     ]);
 
