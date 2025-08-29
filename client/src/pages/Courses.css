@@ -66,3 +66,12 @@
 .enroll-btn:hover {
   background: #0056b3;
 }
+
+.enroll-btn.enrolled {
+  background: #28a745;
+  cursor: not-allowed;
+}
+
+.enroll-btn.enrolled:hover {
+  background: #28a745;
+}
