@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../context/AuthContext';
 import './Dashboard.css';
 
@@ -7,13 +7,8 @@ export default function Dashboard() {
   const [enrollments, setEnrollments] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      fetchEnrollments();
-    }
-  }, [isAuthenticated]);
-
-  const fetchEnrollments = async () => {
+  const fetchEnrollments = useCallback(async () => {
+    if (!user?.id) return;
     try {
       const response = await fetch(`/api/enrollments/user/${user.id}`);
       const data = await response.json();
@@ -23,7 +18,13 @@ export default function Dashboard() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user?.id]);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchEnrollments();
+    }
+  }, [isAuthenticated, fetchEnrollments]);
 
   if (!isAuthenticated) {
     return <div className="dashboard">Please log in to view your dashboard.</div>;

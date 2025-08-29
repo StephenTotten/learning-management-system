@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import './Courses.css';
@@ -9,13 +9,6 @@ export default function Courses() {
   const [enrolledCourses, setEnrolledCourses] = useState([]);
   const { user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    fetchCourses();
-    if (isAuthenticated) {
-      fetchEnrollments();
-    }
-  }, [isAuthenticated]);
 
   const fetchCourses = async () => {
     try {
@@ -29,7 +22,8 @@ export default function Courses() {
     }
   };
 
-  const fetchEnrollments = async () => {
+  const fetchEnrollments = useCallback(async () => {
+    if (!user?.id) return;
     try {
       const response = await fetch(`/api/enrollments/user/${user.id}`);
       const data = await response.json();
@@ -37,7 +31,14 @@ export default function Courses() {
     } catch (error) {
       console.error('Error fetching enrollments:', error);
     }
-  };
+  }, [user?.id]);
+
+  useEffect(() => {
+    fetchCourses();
+    if (isAuthenticated) {
+      fetchEnrollments();
+    }
+  }, [isAuthenticated, fetchEnrollments]);
 
   const handleEnroll = async (courseId) => {
     if (!isAuthenticated) {
