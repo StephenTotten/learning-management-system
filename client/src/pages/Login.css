@@ -68,3 +68,22 @@
 .signup-link a:hover {
   text-decoration: underline;
 }
+
+.error-message {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  border: 1px solid #f5c6cb;
+  font-size: 14px;
+}
+
+.login-btn:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+}
+
+.login-btn:disabled:hover {
+  background: #6c757d;
+}

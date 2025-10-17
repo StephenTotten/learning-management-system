@@ -13,9 +13,11 @@ export default function Navbar() {
   };
 
   const handleLogout = () => {
-    logout();
-    navigate('/');
-    setMobileOpen(false);
+    if (window.confirm('Are you sure you want to logout?')) {
+      logout();
+      navigate('/');
+      setMobileOpen(false);
+    }
   };
 
   return (

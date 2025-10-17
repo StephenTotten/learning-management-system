@@ -10,6 +10,8 @@ export default function Login() {
     email: '',
     password: ''
   });
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -20,6 +22,9 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setLoading(true);
+    
     try {
       const response = await fetch('/api/auth/login', {
         method: 'POST',
@@ -34,10 +39,13 @@ export default function Login() {
         login(data.user);
         navigate('/dashboard');
       } else {
-        console.error('Login failed');
+        const errorData = await response.json();
+        setError(errorData.error || 'Login failed. Please try again.');
       }
     } catch (error) {
-      console.error('Error:', error);
+      setError('Network error. Please check your connection.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -45,6 +53,8 @@ export default function Login() {
     <div className="login-container">
       <form className="login-form" onSubmit={handleSubmit}>
         <h2>Login</h2>
+        
+        {error && <div className="error-message">{error}</div>}
         
         <div className="form-group">
           <input
@@ -68,8 +78,8 @@ export default function Login() {
           />
         </div>
 
-        <button type="submit" className="login-btn">
-          Login
+        <button type="submit" className="login-btn" disabled={loading}>
+          {loading ? 'Logging in...' : 'Login'}
         </button>
 
         <p className="signup-link">

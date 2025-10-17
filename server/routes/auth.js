@@ -42,8 +42,12 @@ router.post('/login', async (req, res) => {
     
     const user = await User.findOne({ where: { email } });
     
-    if (!user || user.password !== password) {
-      return res.status(401).json({ error: 'Invalid credentials' });
+    if (!user) {
+      return res.status(401).json({ error: "Email doesn't exist" });
+    }
+    
+    if (user.password !== password) {
+      return res.status(401).json({ error: 'Password incorrect' });
     }
     
     res.json({
