@@ -21,16 +21,37 @@ app.use('/api/enrollments', require('./routes/enrollments'));
 const PORT = process.env.PORT || 5000;
 const sequelize = require('./config/db');
 
-// Sync database and start server
-sequelize.authenticate()
-  .then(() => {
+function getSyncOptions() {
+  return { force: process.env.DB_RESET === 'true' };
+}
+
+async function startServer() {
+  try {
+    await sequelize.authenticate();
     console.log('Database connected...');
-    return sequelize.sync({ force: true }); // force: true recreates tables
-  })
-  .then(() => {
-    return seedDatabase(); // Populate with sample data
-  })
-  .then(() => {
+
+    const syncOptions = getSyncOptions();
+    if (syncOptions.force) {
+      console.warn('DB_RESET=true enabled: Recreating tables (force: true) and reseeding the DB.');
+    }
+
+    await sequelize.sync(syncOptions);
+
+    // Only seed when we've explicitly requested a reset to avoid unexpected data changes
+    if (syncOptions.force) {
+      await seedDatabase(); // Populate with sample data
+    }
+
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-  })
-  .catch(err => console.log('Error: ' + err));
+  } catch (err) {
+    console.log('Error: ' + err);
+    process.exit(1);
+  }
+}
+
+// If this file is run directly, start the server. When required by tests, don't auto-start.
+if (require.main === module) {
+  startServer();
+}
+
+module.exports = { startServer, getSyncOptions, app };

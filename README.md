@@ -1,5 +1,7 @@
 # Learning Management System
 
+[![CI](https://github.com/StephenTotten/learning-management-system/actions/workflows/ci.yml/badge.svg)](https://github.com/StephenTotten/learning-management-system/actions/workflows/ci.yml)
+
 A full-stack web application for online course management and learning, built with React and Node.js.
 
 ## Features
